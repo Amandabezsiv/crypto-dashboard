@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Serviço do Frontend
+  frontend:
+    image: crypto-dashboard-frontend:latest # Substitua pela tag correta da sua imagem frontend
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+
+  # Serviço do Backend
+  backend:
+    image: backend:latest # Corrigido para "latest" (verifique se a tag está correta)
+    ports:
+      - "5000:5000"
+
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_ENV=development
+    command: [ "uv", "run", "gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "main:app" ]
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

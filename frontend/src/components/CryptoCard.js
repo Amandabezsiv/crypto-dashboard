@@ -71,9 +71,9 @@ const CryptoCard = ({ crypto }) => {
     if (chartInstance.current) {
       // Atualizar o gráfico com o novo preço
       const now = new Date();
-      chartInstance.current.data.labels.push(
-        `${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`
-      );
+      const timeLabel = `${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
+
+      chartInstance.current.data.labels.push(timeLabel);
       chartInstance.current.data.datasets[0].data.push(newPrice);
 
       // Limitar a quantidade de dados no gráfico para não sobrecarregar
